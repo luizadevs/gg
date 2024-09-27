@@ -42,85 +42,179 @@
         const categoryDisplayNames = {
             Estrategista: "Estrategista",
             Aventureiro: "Aventureiro",
-            JogadorDeAcao: "Jogador de Ação",
-            Detetive: "Detetive",
             Criativo: "Criativo",
-            Multiplayer: "Multiplayer",
-            Casual: "Casual",
             Competitivo: "Competitivo"
         };
 
-        const categoryDescriptions = {
-            Estrategista: "Você gosta de planejar suas jogadas e se sentir no controle.",
-            Aventureiro: "Você adora explorar novos mundos e viver grandes aventuras.",
-            JogadorDeAcao: "Você é rápido e gosta de ação intensa e desafiadora.",
-            Detetive: "Você é um solucionador de mistérios e adora enigmas.",
-            Criativo: "Você se destaca em jogos que permitem expressar sua criatividade.",
-            Multiplayer: "Você gosta de jogar com amigos e competir online.",
-            Casual: "Você joga para relaxar e se divertir sem pressão.",
-            Competitivo: "Você sempre quer ser o melhor e adora a competição."
-        };
+       const categoryDescriptions = {
+    Estrategista: "Você prefere vencer pensando à frente e elaborando planos inteligentes. Jogos como Civilization VI, XCOM, Total War: Three Kingdoms, Age of Empires IV e Starcraft II colocam suas habilidades de planejamento à prova.",
+    Aventureiro: "Você adora explorar novos mundos e viver grandes aventuras. Jogos como The Legend of Zelda: Breath of the Wild, Genshin Impact, Hollow Knight, No Man's Sky e The Witcher 3 são perfeitos para você!",
+    Criativo: "Você se destaca em jogos que permitem expressar sua criatividade. Talvez goste de criar em Minecraft, Terraria, The Sims 4, Little Big Planet ou Dreams.",
+    Competitivo: "Você sempre quer ser o melhor e adora a competição. Jogos como League of Legends, Valorant, Overwatch 2, Counter-Strike: Global Offensive e Rocket League devem te desafiar!"
+};
 
-        // Definindo as perguntas, opções e pontuações
-        const quizData = [
-            {
-                question: "Qual é o seu principal objetivo ao jogar?",
-                options: [
-                    "Tentar fazer 100%",
-                    "Explorar mundos abertos",
-                    "Me distrair",
-                    "Resolver mistérios e enigmas"
-                ],
-                scores: [
-                    { Estrategista: 1, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 1, Criativo: 0, Multiplayer: 0, Casual: 0, Competitivo: 1 },
-                    { Estrategista: 0, Aventureiro: 2, JogadorDeAcao: 1, Detetive: 0, Criativo: 1, Multiplayer: 1, Casual: 1, Competitivo: 0 },
-                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 2, Detetive: 0, Criativo: 0, Multiplayer: 1, Casual: 2, Competitivo: 0 },
-                    { Estrategista: 1, Aventureiro: 0, JogadorDeAcao: 0, Detetive: 2, Criativo: 1, Multiplayer: 0, Casual: 0, Competitivo: 0 }
-                ]
-            },
-            {
-                question: "O que é mais importante para você?",
-                options: [
-                    "História",
-                    "Personagens interessantes",
-                    "Mecânicas criativas",
-                    "Arte e técnica"
-                ],
-                scores: [
-                    { Estrategista: 0, Aventureiro: 2, JogadorDeAcao: 0, Detetive: 0, Criativo: 1, Multiplayer: 0, Casual: 0, Competitivo: 0 },
-                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 1, Criativo: 1, Multiplayer: 0, Casual: 1, Competitivo: 0 },
-                    { Estrategista: 1, Aventureiro: 0, JogadorDeAcao: 2, Detetive: 1, Criativo: 2, Multiplayer: 1, Casual: 0, Competitivo: 1 },
-                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 0, Criativo: 1, Multiplayer: 1, Casual: 1, Competitivo: 0 }
-                ]
-            },
-            {
-                question: "Com que frequência você joga?",
-                options: [
-                    "Diariamente",
-                    "Várias vezes por semana",
-                    "Algumas vezes por mês",
-                    "Raramente"
-                ],
-                scores: [
-                    { Estrategista: 1, Aventureiro: 1, JogadorDeAcao: 1, Detetive: 1, Criativo: 1, Multiplayer: 1, Casual: 0, Competitivo: 1 },
-                    { Estrategista: 1, Aventureiro: 1, JogadorDeAcao: 1, Detetive: 1, Criativo: 1, Multiplayer: 1, Casual: 0, Competitivo: 1 },
-                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 1, Criativo: 1, Multiplayer: 0, Casual: 2, Competitivo: 0 },
-                    { Estrategista: 0, Aventureiro: 0, JogadorDeAcao: 0, Detetive: 0, Criativo: 1, Multiplayer: 2, Casual: 3, Competitivo: 0 }
-                ]
-            }
-            // Você pode adicionar mais perguntas aqui seguindo o mesmo formato
-        ];
 
-        const categories = ['Estrategista', 'Aventureiro', 'JogadorDeAcao', 'Detetive', 'Criativo', 'Multiplayer', 'Casual', 'Competitivo'];
-	const colors = ['#4169E1', '#FF4500', '#B8860B', '#32CD32', '#FF1493', '#A020F0', '#5F9EA0', '#778899']; // Cores fixas
+
+const quizData = [
+    {
+        question: "Qual é o seu principal objetivo ao jogar?",
+        options: [
+            "Tentar fazer 100%",
+            "Explorar mundos abertos",
+            "Me distrair",
+            "Resolver mistérios e enigmas"
+        ],
+        scores: [
+            { Estrategista: 2, Competitivo: 1 }, // "Tentar fazer 100%"
+            { Aventureiro: 2, Criativo: 1 },     // "Explorar mundos abertos"
+            { Criativo: 2, Aventureiro: 1 },      // "Me distrair"
+            { Estrategista: 1, Competitivo: 2 }  // "Resolver mistérios e enigmas"
+        ]
+    },
+    {
+        question: "O que é mais importante para você?",
+        options: [
+            "História",
+            "Personagens interessantes",
+            "Mecânicas criativas",
+            "Arte e técnica"
+        ],
+        scores: [
+            { Estrategista: 2, Aventureiro: 1 }, // "História"
+            { Criativo: 2, Aventureiro: 1 },  // "Personagens interessantes"
+            { Criativo: 2, Estrategista: 1 },    // "Mecânicas criativas"
+            { Criativo: 2, Competitivo: 1 }       // "Arte e técnica"
+        ]
+    },
+    {
+        question: "Com que frequência você joga?",
+        options: [
+            "Diariamente",
+            "Várias vezes por semana",
+            "Algumas vezes por mês",
+            "Raramente"
+        ],
+        scores: [
+            { Estrategista: 2, Competitivo: 1 },   // "Diariamente"
+            { Competitivo: 2, Estrategista: 1 },   // "Várias vezes por semana"
+            { Criativo: 2, Aventureiro: 1 },       // "Algumas vezes por mês"
+            { Aventureiro: 2, Criativo: 1 }        // "Raramente"
+        ]
+    },
+    {
+        question: "Você geralmente esquece mais de...",
+        options: [
+            "Fazer as missões secundárias",
+            "Continuar a missão principal",
+            "Upar arma/personagem",
+            "Comprar itens"
+        ],
+        scores: [
+            { Estrategista: 1, Competitivo: 1 }, // "Fazer as missões secundárias"
+            { Aventureiro: 2, Estrategista: 1 }, // "Continuar a missão principal"
+            { Criativo: 1, Estrategista: 2 },    // "Upar arma/personagem"
+            { Criativo: 2, Competitivo: 1 }      // "Comprar itens"
+        ]
+    },
+    {
+        question: "Qual estilo você prefere?",
+        options: [
+            "Pixelado",
+            "Qualquer 3D",
+            "3D realista",
+            "Desenho 2D"
+        ],
+        scores: [
+            { Criativo: 2, Aventureiro: 1 }, // "Pixelado"
+            { Aventureiro: 2, Competitivo: 1 },  // "Qualquer 3D"
+            { Estrategista: 1, Competitivo: 2 },  // "3D realista"
+            { Criativo: 2, Aventureiro: 1 }       // "Desenho 2D"
+        ]
+    },
+    {
+        question: "Como você prefere interagir com outros jogadores?",
+        options: [
+            "Tocando o terror <3",
+            "Competir contra outros amistosamente",
+            "Prefiro jogar só",
+            "Colaborar ou fazer times com os amigos"
+        ],
+        scores: [
+            { Competitivo: 2, Estrategista: 1 }, // "Tocando o terror <3"
+            { Competitivo: 2, Estrategista: 1 }, // "Competir contra outros amistosamente"
+            { Estrategista: 2, Aventureiro: 1 },   // "Prefiro jogar só"
+            { Criativo: 2, Estrategista: 1 }       // "Colaborar ou fazer times com os amigos"
+        ]
+    },
+    {
+        question: "O seu jogo favorito tem essa característica:",
+        options: [
+            "Enredo emocionante",
+            "Desafios difíceis",
+            "Estilo artístico único",
+            "Mundo expansivo para explorar"
+        ],
+        scores: [
+            { Estrategista: 2, Aventureiro: 1 }, // "Enredo emocionante"
+            { Competitivo: 2, Estrategista: 1 }, // "Desafios difíceis"
+            { Criativo: 2, Estrategista: 1 },    // "Estilo artístico único"
+            { Aventureiro: 2, Estrategista: 1 }   // "Mundo expansivo para explorar"
+        ]
+    },
+    {
+        question: "Qual a sua maior frustração ao jogar?",
+        options: [
+            "Falta de conteúdo",
+            "Bugs e problemas técnicos",
+            "Jogadores tóxicos",
+            "Desafios injustos"
+        ],
+        scores: [
+            { Estrategista: 2, Competitivo: 1 }, // "Falta de conteúdo"
+            { Estrategista: 1, Competitivo: 2 }, // "Bugs e problemas técnicos"
+            { Estrategista: 1, Competitivo: 2 }, // "Jogadores tóxicos"
+            { Estrategista: 2, Competitivo: 2 }  // "Desafios injustos"
+        ]
+    },
+    {
+        question: "Qual dessas franquias mais te agrada?",
+        options: [
+            "Zelda",
+            "Pokémon",
+            "Sonic",
+            "Mario"
+        ],
+        scores: [
+            { Aventureiro: 2, Estrategista: 1 }, // "Zelda"
+            { Estrategista: 2, Aventureiro: 1 }, // "Pokémon"
+            { Competitivo: 2, Estrategista: 1 }, // "Sonic"
+            { Aventureiro: 2, Competitivo: 1 }  // "Mario"
+        ]
+    },
+    {
+        question: "Uma fase tá muito difícil, o que você faz?",
+        options: [
+            "Desisto",
+            "Tento várias vezes até conseguir",
+            "Busco dicas e tutoriais",
+            "Encontro um amigo para ajudar"
+        ],
+        scores: [
+            { Estrategista: 1, Competitivo: 1 }, // "Desisto rapidamente"
+            { Estrategista: 2, Competitivo: 2 }, // "Tento várias vezes até conseguir"
+            { Estrategista: 2, Criativo: 1 },    // "Busco dicas e tutoriais"
+            { Estrategista: 1, Competitivo: 2 }  // "Encontro um amigo para ajudar"
+        ]
+    }
+    // Você pode adicionar mais perguntas aqui seguindo o mesmo formato
+];
+
+        const categories = ['Estrategista', 'Aventureiro', 'Criativo', 'Competitivo'];
+	const colors = ['#4169E1', '#FF4500', '#FF1493', '#32CD32']; // Cores fixas
         let scores = {
             Estrategista: 0,
             Aventureiro: 0,
-            JogadorDeAcao: 0,
-            Detetive: 0,
             Criativo: 0,
-            Multiplayer: 0,
-            Casual: 0,
             Competitivo: 0
         };
 
