@@ -68,7 +68,7 @@ const quizData = [
             { Estrategista: 2, Competitivo: 1 }, // "Tentar fazer 100%"
             { Aventureiro: 2, Criativo: 1 },     // "Explorar mundos abertos"
             { Criativo: 2, Aventureiro: 1 },      // "Me distrair"
-            { Estrategista: 1, Competitivo: 2 }  // "Resolver mistérios e enigmas"
+            { Estrategista: 2, Competitivo: 1 }  // "Resolver mistérios e enigmas"
         ]
     },
     {
@@ -80,9 +80,9 @@ const quizData = [
             "Arte e técnica"
         ],
         scores: [
-            { Estrategista: 2, Aventureiro: 1 }, // "História"
+            { Criativo: 1, Aventureiro: 2 }, // "História"
             { Criativo: 2, Aventureiro: 1 },  // "Personagens interessantes"
-            { Criativo: 2, Estrategista: 1 },    // "Mecânicas criativas"
+            { Estrategista: 2, Criativo: 1 },    // "Mecânicas criativas"
             { Criativo: 2, Competitivo: 1 }       // "Arte e técnica"
         ]
     },
@@ -95,8 +95,8 @@ const quizData = [
             "Raramente"
         ],
         scores: [
-            { Estrategista: 2, Competitivo: 1 },   // "Diariamente"
-            { Competitivo: 2, Estrategista: 1 },   // "Várias vezes por semana"
+            { Competitivo: 2, Estrategista: 1 },   // "Diariamente"
+            { Competitivo: 1, Criativo: 2 },   // "Várias vezes por semana"
             { Criativo: 2, Aventureiro: 1 },       // "Algumas vezes por mês"
             { Aventureiro: 2, Criativo: 1 }        // "Raramente"
         ]
@@ -112,7 +112,7 @@ const quizData = [
         scores: [
             { Estrategista: 1, Competitivo: 1 }, // "Fazer as missões secundárias"
             { Aventureiro: 2, Estrategista: 1 }, // "Continuar a missão principal"
-            { Criativo: 1, Estrategista: 2 },    // "Upar arma/personagem"
+            { Criativo: 1, Aventureiro: 2 },    // "Upar arma/personagem"
             { Criativo: 2, Competitivo: 1 }      // "Comprar itens"
         ]
     },
@@ -140,7 +140,7 @@ const quizData = [
             "Colaborar ou fazer times com os amigos"
         ],
         scores: [
-            { Competitivo: 2, Estrategista: 1 }, // "Tocando o terror <3"
+            { Aventureiro: 2, Criativo: 1 }, // "Tocando o terror <3"
             { Competitivo: 2, Estrategista: 1 }, // "Competir contra outros amistosamente"
             { Estrategista: 2, Aventureiro: 1 },   // "Prefiro jogar só"
             { Criativo: 2, Estrategista: 1 }       // "Colaborar ou fazer times com os amigos"
@@ -155,9 +155,9 @@ const quizData = [
             "Mundo expansivo para explorar"
         ],
         scores: [
-            { Estrategista: 2, Aventureiro: 1 }, // "Enredo emocionante"
-            { Competitivo: 2, Estrategista: 1 }, // "Desafios difíceis"
-            { Criativo: 2, Estrategista: 1 },    // "Estilo artístico único"
+            { Criativo: 2, Aventureiro: 1 }, // "Enredo emocionante"
+            { Competitivo: 2, Competitivo: 1 }, // "Desafios difíceis"
+            { Criativo: 2, Aventureiro: 1 },    // "Estilo artístico único"
             { Aventureiro: 2, Estrategista: 1 }   // "Mundo expansivo para explorar"
         ]
     },
@@ -170,9 +170,9 @@ const quizData = [
             "Desafios injustos"
         ],
         scores: [
-            { Estrategista: 2, Competitivo: 1 }, // "Falta de conteúdo"
+            { Aventureiro: 2, Competitivo: 1 }, // "Falta de conteúdo"
             { Estrategista: 1, Competitivo: 2 }, // "Bugs e problemas técnicos"
-            { Estrategista: 1, Competitivo: 2 }, // "Jogadores tóxicos"
+            { Criativo: 1, Aventureiro: 1 }, // "Jogadores tóxicos"
             { Estrategista: 2, Competitivo: 2 }  // "Desafios injustos"
         ]
     },
@@ -185,9 +185,9 @@ const quizData = [
             "Mario"
         ],
         scores: [
-            { Aventureiro: 2, Estrategista: 1 }, // "Zelda"
+            { Aventureiro: 2, Criativo: 1 }, // "Zelda"
             { Estrategista: 2, Aventureiro: 1 }, // "Pokémon"
-            { Competitivo: 2, Estrategista: 1 }, // "Sonic"
+            { Competitivo: 2, Aventureiro: 1 }, // "Sonic"
             { Aventureiro: 2, Competitivo: 1 }  // "Mario"
         ]
     },
@@ -200,10 +200,10 @@ const quizData = [
             "Encontro um amigo para ajudar"
         ],
         scores: [
-            { Estrategista: 1, Competitivo: 1 }, // "Desisto rapidamente"
+            { Aventureiro: 1, Competitivo: 1 }, // "Desisto rapidamente"
             { Estrategista: 2, Competitivo: 2 }, // "Tento várias vezes até conseguir"
             { Estrategista: 2, Criativo: 1 },    // "Busco dicas e tutoriais"
-            { Estrategista: 1, Competitivo: 2 }  // "Encontro um amigo para ajudar"
+            { Criativo: 1, Aventureiro: 2 }  // "Encontro um amigo para ajudar"
         ]
     }
     // Você pode adicionar mais perguntas aqui seguindo o mesmo formato
