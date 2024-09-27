@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Que tipo de Gamer você é</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        #resultado {
+            margin-top: 30px;
+        }
+        #textResult p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Questionário</h2>
+    <form id="quizForm">
+        <div id="questions"></div>
+        <button type="submit">Ver Resultado</button>
+    </form>
+
+    <div id="resultado" style="display:none;">
+        <h2>Resultado</h2>
+        <canvas id="pizzaCanvas" width="400" height="400"></canvas>
+        <div id="textResult"></div>
+    </div>
+
+    <script>
+        // Mapeamento das categorias internas para nomes de exibição e descrições
+        const categoryDisplayNames = {
+            Estrategista: "Estrategista",
+            Aventureiro: "Aventureiro",
+            JogadorDeAcao: "Jogador de Ação",
+            Detetive: "Detetive",
+            Criativo: "Criativo",
+            Multiplayer: "Multiplayer",
+            Casual: "Casual",
+            Competitivo: "Competitivo"
+        };
+
+        const categoryDescriptions = {
+            Estrategista: "Você gosta de planejar suas jogadas e se sentir no controle.",
+            Aventureiro: "Você adora explorar novos mundos e viver grandes aventuras.",
+            JogadorDeAcao: "Você é rápido e gosta de ação intensa e desafiadora.",
+            Detetive: "Você é um solucionador de mistérios e adora enigmas.",
+            Criativo: "Você se destaca em jogos que permitem expressar sua criatividade.",
+            Multiplayer: "Você gosta de jogar com amigos e competir online.",
+            Casual: "Você joga para relaxar e se divertir sem pressão.",
+            Competitivo: "Você sempre quer ser o melhor e adora a competição."
+        };
+
+        // Definindo as perguntas, opções e pontuações
+        const quizData = [
+            {
+                question: "Qual é o seu principal objetivo ao jogar?",
+                options: [
+                    "Tentar fazer 100%",
+                    "Explorar mundos abertos",
+                    "Me distrair",
+                    "Resolver mistérios e enigmas"
+                ],
+                scores: [
+                    { Estrategista: 1, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 1, Criativo: 0, Multiplayer: 0, Casual: 0, Competitivo: 1 },
+                    { Estrategista: 0, Aventureiro: 2, JogadorDeAcao: 1, Detetive: 0, Criativo: 1, Multiplayer: 1, Casual: 1, Competitivo: 0 },
+                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 2, Detetive: 0, Criativo: 0, Multiplayer: 1, Casual: 2, Competitivo: 0 },
+                    { Estrategista: 1, Aventureiro: 0, JogadorDeAcao: 0, Detetive: 2, Criativo: 1, Multiplayer: 0, Casual: 0, Competitivo: 0 }
+                ]
+            },
+            {
+                question: "O que é mais importante para você?",
+                options: [
+                    "História",
+                    "Personagens interessantes",
+                    "Mecânicas criativas",
+                    "Arte e técnica"
+                ],
+                scores: [
+                    { Estrategista: 0, Aventureiro: 2, JogadorDeAcao: 0, Detetive: 0, Criativo: 1, Multiplayer: 0, Casual: 0, Competitivo: 0 },
+                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 1, Criativo: 1, Multiplayer: 0, Casual: 1, Competitivo: 0 },
+                    { Estrategista: 1, Aventureiro: 0, JogadorDeAcao: 2, Detetive: 1, Criativo: 2, Multiplayer: 1, Casual: 0, Competitivo: 1 },
+                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 0, Criativo: 1, Multiplayer: 1, Casual: 1, Competitivo: 0 }
+                ]
+            },
+            {
+                question: "Com que frequência você joga?",
+                options: [
+                    "Diariamente",
+                    "Várias vezes por semana",
+                    "Algumas vezes por mês",
+                    "Raramente"
+                ],
+                scores: [
+                    { Estrategista: 1, Aventureiro: 1, JogadorDeAcao: 1, Detetive: 1, Criativo: 1, Multiplayer: 1, Casual: 0, Competitivo: 1 },
+                    { Estrategista: 1, Aventureiro: 1, JogadorDeAcao: 1, Detetive: 1, Criativo: 1, Multiplayer: 1, Casual: 0, Competitivo: 1 },
+                    { Estrategista: 0, Aventureiro: 1, JogadorDeAcao: 0, Detetive: 1, Criativo: 1, Multiplayer: 0, Casual: 2, Competitivo: 0 },
+                    { Estrategista: 0, Aventureiro: 0, JogadorDeAcao: 0, Detetive: 0, Criativo: 1, Multiplayer: 2, Casual: 3, Competitivo: 0 }
+                ]
+            }
+            // Você pode adicionar mais perguntas aqui seguindo o mesmo formato
+        ];
+
+        const categories = ['Estrategista', 'Aventureiro', 'JogadorDeAcao', 'Detetive', 'Criativo', 'Multiplayer', 'Casual', 'Competitivo'];
+	const colors = ['#4169E1', '#FF4500', '#B8860B', '#32CD32', '#FF1493', '#A020F0', '#5F9EA0', '#778899']; // Cores fixas
+        let scores = {
+            Estrategista: 0,
+            Aventureiro: 0,
+            JogadorDeAcao: 0,
+            Detetive: 0,
+            Criativo: 0,
+            Multiplayer: 0,
+            Casual: 0,
+            Competitivo: 0
+        };
+
+	const categoryColors = {};
+	categories.forEach((category, index) => {
+   	 categoryColors[category] = colors[index]; // Atribuindo a cor correspondente
+	});
+
+
+        // Gerando as perguntas no HTML
+        const questionsContainer = document.getElementById('questions');
+        quizData.forEach((item, index) => {
+            let div = document.createElement('div');
+            div.innerHTML = `<h3>${item.question}</h3>`;
+            item.options.forEach((option, optIndex) => {
+                div.innerHTML += `
+                    <label>
+                        <input type="radio" name="question${index}" value="${optIndex}" required>
+                        ${option}
+                    </label><br>
+                `;
+            });
+            questionsContainer.appendChild(div);
+        });
+
+        // Função para processar o formulário e gerar o gráfico de pizza
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previne o envio do formulário
+
+            // Zerando pontuações
+            categories.forEach(category => scores[category] = 0);
+
+            // Processando as respostas
+            quizData.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    const optIndex = parseInt(selectedOption.value);
+                    const optionScores = item.scores[optIndex];
+                    for (let category in optionScores) {
+                        if (scores.hasOwnProperty(category)) {
+                            scores[category] += optionScores[category];
+                        }
+                    }
+                }
+            });
+
+           // Esconder o questionário e mostrar o resultado
+           document.getElementById('quizForm').style.display = 'none';
+           document.getElementById('resultado').style.display = 'block';
+
+           // Chamar as funções para desenhar o gráfico e exibir o resultado
+           desenharGraficoPizza(scores);
+           exibirResultadoTexto(scores);
+        });
+
+        // Função para desenhar o gráfico de pizza
+        function desenharGraficoPizza(scores) {
+            const canvas = document.getElementById('pizzaCanvas');
+            const ctx = canvas.getContext('2d');
+            const total = Object.values(scores).reduce((acc, score) => acc + score, 0);
+           
+            let startAngle = 0;
+            for (let category in scores) {
+                if (scores[category] > 0) {
+                    const sliceAngle = (scores[category] / total) * (Math.PI * 2);
+                    ctx.beginPath();
+                    ctx.moveTo(200, 200); // Centro do gráfico
+                    ctx.arc(200, 200, 150, startAngle, startAngle + sliceAngle);
+                    ctx.fillStyle = colors[Object.keys(scores).indexOf(category)]; // Usar cor fixa
+                    ctx.fill();
+                    startAngle += sliceAngle;
+                }
+            }
+        }
+
+        /// Função para exibir o resultado em texto
+function exibirResultadoTexto(scores) {
+    const textResult = document.getElementById('textResult');
+    textResult.innerHTML = '';
+
+    let highestCategory = null; // Para armazenar a categoria mais alta
+    let highestScore = -1; // Para armazenar a pontuação mais alta
+
+    // Primeiro, encontramos a categoria com a maior pontuação
+    for (let category in scores) {
+        if (scores[category] > highestScore) {
+            highestScore = scores[category];
+            highestCategory = category;
+        }
+    }
+
+    // Em seguida, exibimos apenas a categoria mais alta, se existir
+    if (highestCategory !== null) {
+        textResult.innerHTML += `<p>Você é um(a) Jogador(a) <strong>${categoryDisplayNames[highestCategory]}</strong>.</p>`;
+        textResult.innerHTML += `<p>${categoryDescriptions[highestCategory]}</p>`;
+    }
+
+    // Calculando o total de pontos
+    const total = Object.values(scores).reduce((acc, score) => acc + score, 0);
+
+    // Exibindo as porcentagens para cada categoria
+    Object.keys(scores).forEach((category) => {
+        const percentage = total > 0 ? ((scores[category] / total) * 100).toFixed(2) : 0; // Evitar divisão por zero
+        const color = categoryColors[category] || '#000'; // Usar a cor correspondente
+
+        textResult.innerHTML += `
+            <p style="color: ${color};"> 
+                <strong>${categoryDisplayNames[category]}:</strong> ${scores[category]} pontos (${percentage}%)
+            </p>
+        `;
+    });
+}
+    </script>
+</body>
+</html>
